@@ -1,0 +1,21 @@
+---
+title : Population of various Indian States
+output: 
+    html_document: 
+        self_contained: no
+---
+  
+## 14 June, 2017
+```{r,warning=FALSE,echo=FALSE}
+library(leaflet)
+indiastates <- read.csv("IndianStates.csv")
+indiastates$hovertext <- paste(indiastates$State, '<br>', indiastates$Pop)
+```
+
+### Click on the markers to find the state population
+
+```{r, warning=FALSE, echo=FALSE}
+df <- data.frame(lat=indiastates$Latitude, lng=indiastates$Longitude)
+my_map <- df %>% leaflet() %>% addTiles() %>% addMarkers(popup=indiastates$hovertext) %>% addProviderTiles(providers$OpenStreetMap)
+my_map
+```
